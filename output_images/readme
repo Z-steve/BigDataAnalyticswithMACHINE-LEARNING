@@ -1,1 +1,3 @@
-
+TWO FOLDERS:
+- SMOTE_oversampling : this folder contains the output images of SMOTE Oversampling strategy
+- Undersampling : this folder contains the output images of undersampling technique (BENIGN instances have been decreased since were too much compared to attack ones)
