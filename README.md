@@ -11,3 +11,4 @@ OUTPUT:
 - learning curves
 - feature importance for each model
 - hyperparameter tuning
+- cross-validation
