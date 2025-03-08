@@ -1,5 +1,5 @@
 # Dataset path
-DATASET_PATH = "/Users/zstev/Desktop/BARI MAGISTRALE CYBERSECURITY/BIG DATA/PROJECT MACHINE LEARNING/datasets"
+DATASET_PATH = "pathofdatasethere"
 
 
 # Color Palette
