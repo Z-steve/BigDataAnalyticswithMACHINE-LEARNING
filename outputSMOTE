@@ -1,0 +1,179 @@
+OUTPUT of main.py with SMOTE (OVERSAMPLING):
+📂 Found 8 CSV files. Loading...
+
+✅ Dataset loaded successfully!
+Shape: (2830743, 79)
+   Destination Port  Flow Duration  ...  Idle Min   Label
+0             49188              4  ...         0  BENIGN
+1             49188              1  ...         0  BENIGN
+2             49188              1  ...         0  BENIGN
+3             49188              1  ...         0  BENIGN
+4             49486              3  ...         0  BENIGN
+
+[5 rows x 79 columns]
+
+✅ Removed 0 entries that were not DDoS, BENIGN, DoS GoldenEye, DoS Hulk, DoS Slowhttptest, DoS slowloris, Botnet, FTP-Patator, SSH-Patator, Heartbleed, Infiltration, PortScan, Web Attack � Brute Force, Web Attack � Sql Injection, Web Attack � XSS
+
+✅ Data Preprocessing Completato! Struttura finale: (2520798, 79)
+✅ Mapping delle Labels eseguito con successo!
+Label
+BENIGN            2095057
+DOS                321759
+RECONNAISSANCE      90694
+BRUTE_FORCE          9150
+WEB_ATTACK           2190
+BOTNET               1948
+Name: count, dtype: int64
+
+✅ Extracted features (numerical only): (2520798, 78), Labels: (2520798,)
+✅ Dati partizionati: Dimensione del set per il train: (1512478, 78), Dimensione del set per il test: (1008320, 78)
+
+🔍 Applying SMOTE with ratio-based strategy: {'BOTNET': 1257034, 'BRUTE_FORCE': 1257034, 'DOS': 1257034, 'RECONNAISSANCE': 1257034, 'WEB_ATTACK': 1257034}
+
+✅ Dataset Balanced with SMOTE in training set! New shape: (7542204, 78)
+New class distribution in training set: [1257034 1257034 1257034 1257034 1257034 1257034]
+
+✅ Dati pronti!
+Forma di X_train: (7542204, 78)
+Forma di y_train: (7542204,)
+Forma di X_test: (1008320, 78)
+Forma di y_test: (1008320,)
+
+🌲 Training Random Forest...
+
+🔍 Training Random_forest Model...
+🚀 Current model parameters before training: {'bootstrap': True, 'ccp_alpha': 0.0, 'class_weight': None, 'criterion': 'gini', 'max_depth': None, 'max_features': 'sqrt', 'max_leaf_nodes': None, 'max_samples': None, 'min_impurity_decrease': 0.0, 'min_samples_leaf': 2, 'min_samples_split': 10, 'min_weight_fraction_leaf': 0.0, 'monotonic_cst': None, 'n_estimators': 100, 'n_jobs': -1, 'oob_score': False, 'random_state': 42, 'verbose': 0, 'warm_start': False}
+✅ Training time: 897.87 seconds
+
+🏆 Evaluating Model Performance...
+✅ Prediction time: 3.43 seconds
+
+📊 Model Performance:
+                precision    recall  f1-score   support
+
+        BENIGN     0.9998    0.9988    0.9993    838023
+        BOTNET     0.6461    0.9564    0.7712       779
+   BRUTE_FORCE     1.0000    0.9975    0.9988      3660
+           DOS     0.9981    0.9991    0.9986    128704
+RECONNAISSANCE     0.9893    0.9995    0.9944     36278
+    WEB_ATTACK     0.9649    0.9726    0.9687       876
+
+      accuracy                         0.9988   1008320
+     macro avg     0.9330    0.9873    0.9552   1008320
+  weighted avg     0.9989    0.9988    0.9988   1008320
+
+
+🔲 Confusion Matrix:
+
+✅ Training Accuracy: 0.9998
+✅ Testing Accuracy: 0.9988
+
+📊 Plotting Feature Importance for Random Forest...
+
+🚀 Training XGBoost...
+
+🔍 Training Xgboost Model...
+🚀 Current model parameters before training: {'objective': 'binary:logistic', 'base_score': None, 'booster': None, 'callbacks': None, 'colsample_bylevel': None, 'colsample_bynode': None, 'colsample_bytree': 1.0, 'device': None, 'early_stopping_rounds': None, 'enable_categorical': False, 'eval_metric': 'mlogloss', 'feature_types': None, 'gamma': None, 'grow_policy': None, 'importance_type': None, 'interaction_constraints': None, 'learning_rate': 0.1, 'max_bin': None, 'max_cat_threshold': None, 'max_cat_to_onehot': None, 'max_delta_step': None, 'max_depth': 9, 'max_leaves': None, 'min_child_weight': None, 'missing': nan, 'monotone_constraints': None, 'multi_strategy': None, 'n_estimators': 200, 'n_jobs': -1, 'num_parallel_tree': None, 'random_state': 42, 'reg_alpha': None, 'reg_lambda': None, 'sampling_method': None, 'scale_pos_weight': None, 'subsample': 1.0, 'tree_method': None, 'validate_parameters': None, 'verbosity': 1, 'use_label_encoder': False}
+C:\Users\zstev\PycharmProjects\PythonProject\.venv\Lib\site-packages\xgboost\core.py:158: UserWarning: [14:30:42] WARNING: C:\buildkite-agent\builds\buildkite-windows-cpu-autoscaling-group-i-08cbc0333d8d4aae1-1\xgboost\xgboost-ci-windows\src\learner.cc:740: 
+Parameters: { "use_label_encoder" } are not used.
+
+  warnings.warn(smsg, UserWarning)
+✅ Training time: 768.62 seconds
+
+🔍 Evaluating XGBoost...
+
+🏆 Evaluating Model Performance...
+✅ Prediction time: 7.36 seconds
+
+📊 Model Performance:
+              precision    recall  f1-score   support
+
+           0     0.9999    0.9987    0.9993    838023
+           1     0.5935    0.9782    0.7387       779
+           2     0.9997    0.9986    0.9992      3660
+           3     0.9988    0.9996    0.9992    128704
+           4     0.9890    0.9997    0.9943     36278
+           5     0.9696    0.9829    0.9762       876
+
+    accuracy                         0.9988   1008320
+   macro avg     0.9251    0.9929    0.9511   1008320
+weighted avg     0.9990    0.9988    0.9989   1008320
+
+
+🔲 Confusion Matrix:
+
+✅ Training Accuracy: 0.9998
+✅ Testing Accuracy: 0.9988
+
+📊 Plotting Feature Importance for XGBoost...
+
+🌟 Training LightGBM...
+
+🔍 Training Lightgbm Model...
+🚀 Current model parameters before training: {'boosting_type': 'gbdt', 'class_weight': None, 'colsample_bytree': 0.5, 'importance_type': 'split', 'learning_rate': 0.01, 'max_depth': 7, 'min_child_samples': 20, 'min_child_weight': 0.001, 'min_split_gain': 0.0, 'n_estimators': 500, 'n_jobs': -1, 'num_leaves': 31, 'objective': 'multiclass', 'random_state': 42, 'reg_alpha': 0.0, 'reg_lambda': 0.0, 'subsample': 0.5, 'subsample_for_bin': 200000, 'subsample_freq': 0, 'metric': 'multi_logloss', 'verbose': -1}
+✅ Training time: 1277.73 seconds
+
+🔍 Evaluating LightGBM...
+
+🏆 Evaluating Model Performance...
+✅ Prediction time: 42.05 seconds
+
+📊 Model Performance:
+              precision    recall  f1-score   support
+
+           0     0.9999    0.9966    0.9983    838023
+           1     0.2900    0.9987    0.4495       779
+           2     0.9946    0.9997    0.9971      3660
+           3     0.9965    0.9996    0.9980    128704
+           4     0.9895    0.9995    0.9945     36278
+           5     0.8742    0.9920    0.9294       876
+
+    accuracy                         0.9971   1008320
+   macro avg     0.8575    0.9977    0.8945   1008320
+weighted avg     0.9985    0.9971    0.9976   1008320
+
+
+🔲 Confusion Matrix:
+
+✅ Training Accuracy: 0.9993
+✅ Testing Accuracy: 0.9971
+
+📊 Plotting Feature Importance for LightGBM...
+
+📊 Comparing Model Performance...
+
+🌟 Training LightGBM...
+
+🔍 Training Lightgbm Model...
+🚀 Current model parameters before training: {'boosting_type': 'gbdt', 'class_weight': None, 'colsample_bytree': 0.8, 'importance_type': 'split', 'learning_rate': 0.1, 'max_depth': 5, 'min_child_samples': 20, 'min_child_weight': 0.001, 'min_split_gain': 0.0, 'n_estimators': 100, 'n_jobs': -1, 'num_leaves': 31, 'objective': 'multiclass', 'random_state': 42, 'reg_alpha': 0.0, 'reg_lambda': 0.0, 'subsample': 0.8, 'subsample_for_bin': 200000, 'subsample_freq': 0, 'metric': 'multi_logloss', 'verbose': -1}
+✅ Training time: 188.97 seconds
+
+🔍 Evaluating LightGBM...
+
+🏆 Evaluating Model Performance...
+✅ Prediction time: 6.92 seconds
+
+📊 Model Performance:
+              precision    recall  f1-score   support
+
+           0     0.9999    0.9977    0.9988    838023
+           1     0.3883    0.9974    0.5590       779
+           2     0.9981    0.9995    0.9988      3660
+           3     0.9978    0.9996    0.9987    128704
+           4     0.9893    0.9996    0.9944     36278
+           5     0.8977    0.9920    0.9425       876
+
+    accuracy                         0.9980   1008320
+   macro avg     0.8785    0.9976    0.9154   1008320
+weighted avg     0.9987    0.9980    0.9982   1008320
+
+
+🔲 Confusion Matrix:
+
+✅ Training Accuracy: 0.9995
+✅ Testing Accuracy: 0.9980
+
+📊 Plotting Feature Importance for LightGBM...
+
+✅ All models trained, evaluated, and visualized!
+
