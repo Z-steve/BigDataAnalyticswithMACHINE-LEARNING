@@ -50,8 +50,12 @@ manual_params_lgbm = {
     "verbose": -1                   # Supprime output
 }
 
+manual_params_lgbm_undersampling = {'boosting_type': 'gbdt', 'class_weight': None, 'colsample_bytree': 0.5, 'importance_type': 'split', 'learning_rate': 0.01, 'max_depth': 7, 'min_child_samples': 20, 'min_child_weight': 0.001, 'min_split_gain': 0.0, 'n_estimators': 500, 'n_jobs': -1, 'num_leaves': 31, 'objective': 'multiclass', 'reg_alpha': 0.0, 'reg_lambda': 0.0, 'subsample': 0.5, 'subsample_for_bin': 200000, 'subsample_freq': 0, 'metric': 'multi_logloss', 'verbose': -1}
+
+
+
 # Definisce il metodo di gestione dello squilibrio e parametri
-IMBALANCE_METHOD = 'smote'  # Opzioni: 'smote' o 'undersample'
+IMBALANCE_METHOD = 'undersample'  # Opzioni: 'smote' o 'undersample'
 IMBALANCE_PARAMS = {'undersampling_ratio': 0.15} if IMBALANCE_METHOD == 'undersample' else {'sampling_strategy': 1.0}
 
 if __name__ == "__main__":
@@ -220,8 +224,11 @@ if __name__ == "__main__":
 
     # Train LightGBM
     print("\n🌟 Training LightGBM...")
-    trainer_lgbm = ModelTrainer(X_train, y_train_encoded, X_test, y_test_encoded, visualizer, model_type="lightgbm",
-                                **manual_params_lgbm)
+    if IMBALANCE_METHOD == "smote":
+        trainer_lgbm = ModelTrainer(X_train, y_train_encoded, X_test, y_test_encoded, visualizer, model_type="lightgbm", **manual_params_lgbm)
+    else:
+        trainer_lgbm = ModelTrainer(X_train, y_train_encoded, X_test, y_test_encoded, visualizer, model_type="lightgbm", **manual_params_lgbm_undersampling)
+
     # Perform hyperparameter tuning for LightGBM (optional, uncomment if needed)
     # trainer_lgbm.hyperparameter_tuning(X_train, y_train_encoded)
 
